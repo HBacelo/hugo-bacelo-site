@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursos em Vídeo | Hugo Bacelo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], serif: ['Playfair Display', 'serif'] },
+                    colors: { catholic: { deep: '#0F172A', gold: '#D97706', goldLight: '#FBBF24', cream: '#FDFBF7', accent: '#1E293B' } }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Cobertura anti-download */
+        .video-wrapper {
+            position: relative;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+</head>
+<body class="bg-catholic-cream text-slate-800 font-sans antialiased" oncontextmenu="return false;">
+
+    <!-- TOAST CONTAINER -->
+    <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- CONTAINER DO MENU GLOBAL DINÂMICO -->
+    <div id="menu-container"></div>
+
+    <!-- CONTENT -->
+    <section class="py-16 max-w-5xl mx-auto px-6">
+        <div class="text-center space-y-3 mb-12">
+            <span class="text-catholic-gold text-xs uppercase font-extrabold tracking-widest">Plataforma de Vídeos Protegidos</span>
+            <h1 class="font-serif text-3xl sm:text-4xl font-bold text-catholic-deep">Estudo Litúrgico & Doutrina</h1>
+            <div class="h-1 w-12 bg-catholic-gold mx-auto"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+            
+            <!-- COURSE 1 (Active) -->
+            <div class="bg-white border border-stone-200 rounded-xl overflow-hidden shadow-md flex flex-col justify-between">
+                <div class="p-6 space-y-4">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-white bg-emerald-600 px-2 py-0.5 rounded">Disponível</span>
+                    <h2 class="font-serif text-xl font-bold text-catholic-deep">Conhecer a Missa (parte 1)</h2>
+                    <p class="text-xs text-slate-500 font-medium">Aulas Gravadas • Acesso Imediato • Proteção Anti-Cópia</p>
+                    <p class="text-xs text-slate-600 leading-relaxed font-light">
+                        Uma análise litúrgica profunda sobre os ritos iniciais, a Liturgia da Palavra e o mistério que envolve a primeira parte do Santo Sacrifício da Missa.
+                    </p>
+
+                    <!-- Safe Video Mock Player with right-click block overlay -->
+                    <div class="video-wrapper bg-slate-900 aspect-video rounded-lg overflow-hidden flex flex-col items-center justify-center p-4 text-center text-white border border-white/10 relative">
+                        <div id="video-unlocked-state" class="hidden space-y-3 z-10">
+                            <span class="text-emerald-400 font-bold text-xs uppercase tracking-widest">✓ Conteúdo Desbloqueado</span>
+                            <p class="text-[11px] text-slate-300">Reprodução Protegida em L1-Encryption (Streaming encriptado contra gravação e cópias)</p>
+                            <!-- Visual Player controls representation -->
+                            <div class="flex items-center justify-center gap-4 pt-2">
+                                <button onclick="showNotification('Vídeo em reprodução segura...', 'success')" class="bg-catholic-gold hover:bg-[#B45309] text-white p-2 rounded-full"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+                                <span class="text-[10px] text-slate-400">00:00 / 45:12</span>
+                            </div>
+                        </div>
+                        <div id="video-locked-state" class="space-y-3 z-10">
+                            <span class="text-amber-500 text-2xl">🔒</span>
+                            <h4 class="font-serif font-bold text-sm">Acesso Bloqueado</h4>
+                            <p class="text-[11px] text-slate-400 px-4">Adquira o curso sem necessidade de registo de conta de forma extremamente simples.</p>
+                        </div>
+                        <!-- Watermark/Protect text overlay -->
+                        <div class="absolute bottom-2 right-2 text-[9px] text-white/20 select-none pointer-events-none uppercase tracking-widest">Hugo Bacelo - Protegido contra Download</div>
+                    </div>
+                </div>
+
+                <div class="p-6 bg-slate-50 border-t border-stone-200 flex items-center justify-between">
+                    <div>
+                        <span class="text-slate-400 text-[10px] block uppercase font-bold">Valor Total</span>
+                        <span class="text-base font-bold text-catholic-deep">8.99€</span>
+                    </div>
+                    <button onclick="openPaymentModal()" class="bg-catholic-gold hover:bg-catholic-goldDark text-white text-xs font-bold uppercase tracking-wider px-5 py-3 rounded shadow transition">
+                        Comprar Acesso
+                    </button>
+                </div>
+            </div>
+
+            <!-- COURSE 2 (Coming Soon) -->
+            <div class="bg-white border border-stone-200 rounded-xl overflow-hidden shadow-md opacity-80 flex flex-col justify-between">
+                <div class="p-6 space-y-4">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-white bg-slate-500 px-2 py-0.5 rounded">Em breve</span>
+                    <h2 class="font-serif text-xl font-bold text-slate-600">Conhecer a Missa (parte 2)</h2>
+                    <p class="text-xs text-slate-400 font-medium">Lançamento em breve • Estudo Eucarístico Completo</p>
+                    <p class="text-xs text-slate-400 leading-relaxed font-light">
+                        Aprofunde o coração do mistério eucarístico, a Liturgia Eucarística, os ritos de comunhão e o envio final do culto cristão.
+                    </p>
+                </div>
+                <div class="p-6 bg-slate-50 border-t border-stone-200 flex items-center justify-between">
+                    <div>
+                        <span class="text-slate-400 text-[10px] block uppercase font-bold">Preço</span>
+                        <span class="text-base font-bold text-slate-400">Em Breve</span>
+                    </div>
+                    <button disabled class="bg-slate-200 text-slate-400 cursor-not-allowed text-xs font-bold uppercase tracking-wider px-5 py-3 rounded">
+                        Em breve
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SIMPLE NO-REGISTRATION PAYMENT MODAL (Simulador) -->
+    <div id="payment-modal" class="fixed inset-0 z-50 hidden bg-slate-950/70 flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-xl max-w-md w-full shadow-2xl p-6 relative border-t-4 border-catholic-gold">
+            <button onclick="closePaymentModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 focus:outline-none"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+            
+            <h3 class="font-serif text-xl font-bold text-catholic-deep mb-2">Comprar Acesso Imediato</h3>
+            <p class="text-xs text-slate-500 mb-6">Escolha o seu método de pagamento preferencial. O seu acesso será validado e desbloqueado de imediato neste dispositivo sem complicações de registo.</p>
+            
+            <div class="space-y-4">
+                <!-- MB Way Option -->
+                <div class="p-4 bg-slate-50 border border-stone-200 rounded-lg flex items-center justify-between">
+                    <div>
+                        <span class="text-xs font-bold text-slate-800 block">📱 MB WAY</span>
+                        <span class="text-[10px] text-slate-500">Introduza o número de telemóvel</span>
+                    </div>
+                    <input id="mbway-phone" type="text" placeholder="9xxxxxxxx" class="border border-stone-300 rounded p-1.5 text-xs text-right max-w-[120px] focus:outline-none focus:border-catholic-gold">
+                </div>
+
+                <!-- Transfer / IBAN Option -->
+                <div class="p-4 bg-slate-50 border border-stone-200 rounded-lg space-y-1">
+                    <span class="text-xs font-bold text-slate-800 block">🏦 Transferência Bancária</span>
+                    <span class="text-[10px] text-slate-500 block">IBAN: PT50 0007 0000 1234 5678 9012 3</span>
+                    <span class="text-[10px] text-slate-500 block">Envie o comprovativo para: <strong>geral@jeronimoeditora.com</strong></span>
+                </div>
+            </div>
+
+            <button onclick="simulatePaymentApproval()" class="w-full bg-catholic-deep hover:bg-[#B45309] text-white font-bold py-3 px-4 rounded text-xs uppercase mt-6 transition">
+                Simular Confirmação de Pagamento
+            </button>
+        </div>
+    </div>
+
+    <!-- CONTAINER DO RODAPÉ GLOBAL DINÂMICO -->
+    <div id="rodape-container"></div>
+
+    <script>
+        // Função auxiliar para construir caminhos absolutos relativos à localização atual
+        function obterUrlRelativa(nomeFicheiro) {
+            try {
+                const urlBase = new URL(window.location.href);
+                const partesCaminho = urlBase.pathname.split('/');
+                partesCaminho[partesCaminho.length - 1] = nomeFicheiro;
+                urlBase.pathname = partesCaminho.join('/');
+                return urlBase.toString();
+            } catch (e) {
+                return nomeFicheiro;
+            }
+        }
+
+        // Função assíncrona para carregar componentes externos dinamicamente de forma segura
+        async function carregarComponentesGlobais() {
+            try {
+                const urlMenu = obterUrlRelativa('menu.html');
+                const menuResposta = await fetch(urlMenu);
+                if (menuResposta.ok) {
+                    const menuHTML = await menuResposta.text();
+                    document.getElementById('menu-container').innerHTML = menuHTML;
+                } else {
+                    const menuFallback = await fetch('menu.html');
+                    if (menuFallback.ok) {
+                        document.getElementById('menu-container').innerHTML = await menuFallback.text();
+                    }
+                }
+            } catch (erro) {
+                console.warn('CORS ou Sandbox impediu o carregamento dinâmico do menu.');
+            }
+
+            try {
+                const urlRodape = obterUrlRelativa('rodape.html');
+                const rodapeResposta = await fetch(urlRodape);
+                if (rodapeResposta.ok) {
+                    const rodapeHTML = await rodapeResposta.text();
+                    document.getElementById('rodape-container').innerHTML = rodapeHTML;
+                } else {
+                    const rodapeFallback = await fetch('rodape.html');
+                    if (rodapeFallback.ok) {
+                        document.getElementById('rodape-container').innerHTML = await rodapeFallback.text();
+                    }
+                }
+            } catch (erro) {
+                console.warn('CORS ou Sandbox impediu o carregamento dinâmico do rodapé.');
+            }
+        }
+
+        // Executar o carregamento quando o DOM estiver pronto
+        window.addEventListener('DOMContentLoaded', carregarComponentesGlobais);
+
+        // Sistema de Notificações Customizadas
+        function showNotification(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `p-4 rounded shadow-lg text-white font-semibold text-xs flex items-center gap-3 transition-all duration-300 bg-catholic-gold shadow-stone-900/10`;
+            toast.innerHTML = `<span>✓</span><span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => { toast.classList.add('opacity-0'); setTimeout(() => { toast.remove(); }, 300); }, 5000);
+        }
+
+        // Alternar o Menu Móvel
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu) {
+                if (menu.classList.contains('hidden')) {
+                    menu.classList.remove('hidden');
+                } else {
+                    menu.classList.add('hidden');
+                }
+            }
+        }
+
+        function openPaymentModal() { document.getElementById('payment-modal').classList.remove('hidden'); }
+        function closePaymentModal() { document.getElementById('payment-modal').classList.add('hidden'); }
+
+        function simulatePaymentApproval() {
+            closePaymentModal();
+            document.getElementById('video-locked-state').classList.add('hidden');
+            document.getElementById('video-unlocked-state').classList.remove('hidden');
+            showNotification('Acesso ao vídeo desbloqueado com sucesso neste dispositivo!', 'success');
+        }
+    </script>
+</body>
+</html>

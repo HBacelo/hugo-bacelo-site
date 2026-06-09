@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hugo Bacelo | Conteúdo Central</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Playfair Display & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        catholic: {
+                            deep: '#0F172A', // Slate 900 - Azul escuro profundo solene
+                            gold: '#D97706', // Amber 600 - Laranja/Ouro litúrgico
+                            goldLight: '#FBBF24', // Amber 400
+                            goldDark: '#B45309', // Amber 700
+                            cream: '#FDFBF7', // Fundo de papel manuscrito antigo
+                            accent: '#1E293B' // Slate 800 - Ligeiramente mais claro para os cartões
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Letra capitular para um início editorial elegante */
+        .drop-cap::first-letter {
+            font-family: 'Playfair Display', serif;
+            float: left;
+            font-size: 3.5rem;
+            line-height: 2.8rem;
+            padding-right: 0.75rem;
+            font-weight: bold;
+            color: #D97706;
+        }
+    </style>
+</head>
+<body class="bg-catholic-cream text-slate-800 font-sans antialiased selection:bg-catholic-goldLight selection:text-catholic-deep">
+
+    <!-- CONTAINER DO MENU GLOBAL DINÂMICO -->
+    <div id="menu-container"></div>
+
+    <!-- CONTENTOR DE NOTIFICAÇÕES TOAST (Substituição para alertas do navegador) -->
+    <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- FITA DECORATIVA SUPERIOR -->
+    <div class="h-1.5 w-full bg-catholic-gold"></div>
+
+    <!-- SECÇÃO HERO (APRESENTAÇÃO principal) -->
+    <header id="inicio" class="relative bg-catholic-deep text-white py-20 lg:py-28 overflow-hidden">
+        <!-- Padrão decorativo de cruz latina em fundo -->
+        <div class="absolute inset-0 opacity-[0.03] flex items-center justify-center pointer-events-none">
+            <svg class="w-[500px] h-[500px] text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M11 2h2v6h5v2h-5v12h-2V10H6V8h5V2z"/>
+            </svg>
+        </div>
+        
+        <div class="max-w-6xl mx-auto px-6 sm:px-8 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <div class="lg:col-span-8 space-y-6 text-center lg:text-left">
+                <!-- Slogan com ponto indicador pulsante -->
+                <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-catholic-gold/20 text-catholic-goldLight border border-catholic-gold/30">
+                    <span class="w-2 h-2 rounded-full bg-catholic-gold animate-ping"></span>
+                    Onde ser do contra surge naturalmente.
+                </span>
+                
+                <!-- Título Principal -->
+                <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
+                    Pensar a Fé,<br>
+                    <span class="text-catholic-goldLight">Viver a Palavra</span>
+                </h1>
+                
+                <!-- Descrição Curta -->
+                <p class="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto lg:mx-0 font-light leading-relaxed">
+                    Sou o <strong class="text-white">Hugo Bacelo</strong>, escritor e orador católico. Fundador e Editor da <strong class="text-white">Jerónimo Editora</strong> e responsável pelo movimento paroquiano <strong class="text-white">Aprendizes do Verbo</strong>.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+                    <a href="#sobre" class="bg-catholic-gold hover:bg-catholic-goldDark text-white px-6 py-3 rounded font-bold shadow-lg shadow-catholic-gold/20 transition-all text-center text-xs uppercase tracking-wider">
+                        Conhecer Missão
+                    </a>
+                    <a href="#cursos" class="bg-transparent border border-white/30 hover:bg-white/10 text-white px-6 py-3 rounded font-bold transition-all text-center text-xs uppercase tracking-wider">
+                        Ver Cursos e Formação
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Fotografia do escritor com fallback automático -->
+            <div class="lg:col-span-4 flex justify-center">
+                <div class="relative w-64 h-80 sm:w-72 sm:h-[350px] rounded-xl overflow-hidden shadow-2xl border border-white/10 bg-slate-800 flex flex-col justify-end p-6">
+                    <div class="absolute inset-0">
+                        <img src="Imagens/hugobacelo.png" alt="Hugo Bacelo" class="w-full h-full object-cover" onerror="this.style.display='none'; document.getElementById('cross-fallback').classList.remove('hidden');">
+                    </div>
+                    <!-- Silhueta decorativa caso a imagem original falhe ao carregar -->
+                    <div id="cross-fallback" class="absolute inset-0 flex items-center justify-center hidden">
+                        <svg class="w-16 h-16 text-slate-700/60" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M11 2h2v6h5v2h-5v12h-2V10H6V8h5V2z"/>
+                        </svg>
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/20 to-transparent"></div>
+                    <div class="relative z-10 text-center">
+                        <h3 class="font-serif text-xl font-bold text-white">Hugo Bacelo</h3>
+                        <p class="text-[10px] text-catholic-goldLight font-bold uppercase tracking-widest mt-1">Escritor & Orador Católico</p>
+                        <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-center gap-3 text-xs text-slate-300">
+                            <span>📖 Ensaios Sólidos</span>
+                            <span>•</span>
+                            <span>🎥 Formação Online</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </header>
+
+    <!-- SECÇÃO SOBRE HUGO BACELO - Fundo Papel Manuscrito -->
+    <section id="sobre" class="py-24 bg-[#FDFBF7]">
+        <div class="max-w-4xl mx-auto px-6 sm:px-8">
+            <div class="space-y-6 text-center mb-12">
+                <span class="text-catholic-gold uppercase tracking-[0.2em] text-xs font-bold block">Sobre Hugo Bacelo</span>
+                <div class="h-1 w-16 bg-catholic-gold mx-auto rounded"></div>
+            </div>
+
+            <div class="space-y-8 text-center max-w-3xl mx-auto">
+                <div class="prose prose-stone text-slate-700 text-base sm:text-lg leading-relaxed font-light space-y-6">
+                    <!-- Manifesto ou Citação com Destaque -->
+                    <p class="text-center italic text-xl sm:text-2xl md:text-3xl text-catholic-deep font-serif max-w-2xl mx-auto leading-relaxed px-4 py-2">
+                        "Sempre do contra quando a verdade exige ir na direção oposta ao rebanho conformista."
+                    </p>
+                    
+                    <!-- Biografia Curta -->
+                    <p class="drop-cap text-left pt-4">
+                        Sou um cristão católico profundamente convicto, impulsionado pelo desejo de resgatar o pensamento intelectual cristão e a fidelidade irrestrita ao Magistério. A minha missão através do ensino e das palestras assenta no compromisso inequívoco com a Verdade revelada.
+                    </p>
+                </div>
+
+                <!-- Painel de Posicionamento Teológico e Pessoal -->
+                <div class="bg-white border-2 border-catholic-gold/30 p-8 rounded-xl shadow-lg max-w-3xl mx-auto space-y-4">
+                    <div class="flex items-center justify-center gap-1.5 text-catholic-gold">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M11 2h2v6h5v2h-5v12h-2V10H6V8h5V2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-sans text-xs font-extrabold text-catholic-gold tracking-[0.2em] uppercase">Posicionamento de Vida</h3>
+                    
+                    <div class="font-sans text-base sm:text-lg md:text-xl text-slate-800 leading-relaxed font-bold max-w-2xl mx-auto flex flex-col items-center justify-center space-y-3 pt-2">
+                        <span class="block tracking-wide">Teologicamente ancorado em Cristo</span>
+                        <span class="text-catholic-gold text-xs">▼</span>
+                        <span class="block tracking-wide">Politicamente sem-abrigo</span>
+                        <span class="text-catholic-gold text-xs">▼</span>
+                        <span class="block tracking-wide">Crítico de muitas coisas, admirador de poucas</span>
+                    </div>
+                    
+                    <div class="h-[1px] w-12 bg-stone-200 mx-auto"></div>
+                    <span class="block text-[10px] uppercase tracking-wider font-semibold text-catholic-deep">Hugo Bacelo</span>
+                </div>
+
+                <!-- Botão de Ação -->
+                <div class="pt-8">
+                    <a href="sobreHB.html" class="inline-block bg-catholic-deep hover:bg-catholic-gold text-white text-xs font-bold uppercase tracking-widest px-8 py-4 rounded shadow-md transition duration-200">
+                        Ver mais sobre Hugo Bacelo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECÇÃO: CURSOS EM VÍDEO (FORMAÇÃO) - Contraste Azul Escuro -->
+    <section id="cursos" class="py-24 bg-catholic-deep text-white border-t border-b border-slate-850">
+        <div class="max-w-6xl mx-auto px-6 sm:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                
+                <div class="flex items-center justify-center gap-3 mb-2">
+                    <svg class="w-8 h-8 text-catholic-goldLight" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                    </svg>
+                    <span class="text-catholic-goldLight uppercase tracking-[0.2em] text-xs font-bold block">Plataforma de Formação</span>
+                </div>
+                
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-white">Cursos em Vídeo para uma Fé Sólida</h2>
+                <p class="text-slate-300 font-light text-sm sm:text-base leading-relaxed">
+                    Aceda a formações teológicas profundas em vídeo, estruturadas de forma didática e rigorosa, para estudar ao seu próprio ritmo a partir de casa.
+                </p>
+            </div>
+
+            <!-- Grelha de Cursos -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                
+                <!-- Curso 1 -->
+                <div class="bg-catholic-accent rounded-xl border border-white/10 overflow-hidden flex flex-col justify-between shadow-xs hover:border-white/20 transition">
+                    <div class="p-6 space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="inline-block text-[10px] font-bold uppercase tracking-wider text-white bg-emerald-600 px-2.5 py-1 rounded">Disponível</span>
+                        </div>
+                        <h3 class="font-serif text-xl font-bold text-white">Conhecer a Missa (parte 1)</h3>
+                        <p class="text-xs text-slate-300 font-medium">Aulas Gravadas • Acesso Imediato • Textos de Apoio</p>
+                        <p class="text-xs text-slate-300 leading-relaxed font-light">
+                            Uma análise litúrgica e teológica profunda sobre os ritos iniciais, a Liturgia da Palavra e o mistério que envolve a primeira parte do Santo Sacrifício da Missa.
+                        </p>
+                    </div>
+                    <div class="p-6 bg-slate-900/60 border-t border-white/10 flex items-center justify-between">
+                        <div>
+                            <span class="text-slate-400 text-[10px] block uppercase font-semibold">Preço</span>
+                            <span class="text-base font-bold text-white">8.99€</span>
+                        </div>
+                        <a href="mailto:geral@jeronimoeditora.com?subject=Inscricao%20Curso%20Conhecer%20a%20Missa%201" class="bg-catholic-gold hover:bg-catholic-goldDark text-white text-xs font-bold uppercase tracking-wider px-4 py-2.5 rounded transition">
+                            Comprar / Inscrever-me
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Curso 2 -->
+                <div class="bg-catholic-accent rounded-xl border border-white/10 overflow-hidden flex flex-col justify-between shadow-xs hover:border-white/20 transition opacity-90">
+                    <div class="p-6 space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="inline-block text-[10px] font-bold uppercase tracking-wider text-slate-300 bg-slate-700 px-2.5 py-1 rounded">Em breve</span>
+                        </div>
+                        <h3 class="font-serif text-xl font-bold text-slate-400">Conhecer a Missa (parte 2)</h3>
+                        <p class="text-xs text-slate-400 font-medium">Lançamento em Breve • Vídeo HD • Caderno Litúrgico</p>
+                        <p class="text-xs text-slate-400 leading-relaxed font-light">
+                            Aprofunde o coração do mistério eucarístico, a Liturgia Eucarística, os ritos de comunhão e os ritos de envio final do culto cristão.
+                        </p>
+                    </div>
+                    <div class="p-6 bg-slate-900/60 border-t border-white/10 flex items-center justify-between">
+                        <div>
+                            <span class="text-slate-400 text-[10px] block uppercase font-semibold">Estado</span>
+                            <span class="text-sm font-bold text-slate-400">Em Breve</span>
+                        </div>
+                        <button disabled class="bg-slate-800 text-slate-500 cursor-not-allowed text-xs font-bold uppercase tracking-wider px-4 py-2.5 rounded">
+                            Reservar Vaga
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECÇÃO: PALESTRAS & TEMAS DE DESTAQUE -->
+    <section class="py-24 bg-[#FDFBF7] border-b border-stone-200">
+        <div class="max-w-6xl mx-auto px-6 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <div class="lg:col-span-6 space-y-6">
+                
+                <div class="flex items-center gap-3">
+                    <svg class="w-8 h-8 text-catholic-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
+                    </svg>
+                    <span class="text-catholic-gold uppercase tracking-[0.2em] text-xs font-bold block">PRESENÇAS & ENCONTROS</span>
+                </div>
+                
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-catholic-deep">Leve Evangelização e Reflexão à sua Paróquia</h2>
+                <p class="text-slate-600 text-sm sm:text-base leading-relaxed font-light">
+                    Disponibilizo o meu ministério de orador para paróquias, dioceses, escolas secundárias e movimentos católicos comprometidos. Com palestras que desconstroem as falsas facilidades do relativismo, o meu objetivo é semear audácia cristã prática nas comunidades.
+                </p>
+
+                <div class="space-y-4 text-xs sm:text-sm text-slate-600 font-light">
+                    <div class="flex items-center gap-2">
+                        <span class="text-catholic-gold font-bold">✓</span>
+                        <span>Maturidade Doutrinária: Conferências fiéis e desafiadoras.</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-catholic-gold font-bold">✓</span>
+                        <span>Dinamização de Retiros de Estudos Bíblicos.</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-catholic-gold font-bold">✓</span>
+                        <span>Formação de Catequistas e Lideranças Pastorais.</span>
+                    </div>
+                </div>
+
+                <div class="pt-4">
+                    <a href="mailto:geral@jeronimoeditora.com?subject=Pedido%20de%20Palestra%20-%20Hugo%20Bacelo" class="inline-block bg-catholic-gold hover:bg-catholic-goldDark text-white text-xs font-bold uppercase tracking-widest px-6 py-3 rounded shadow transition">
+                        Preencher Formulário de Convite →
+                    </a>
+                </div>
+            </div>
+
+            <!-- Temas em Destaque -->
+            <div class="lg:col-span-6 bg-white border border-stone-200 p-8 rounded-xl shadow-xs space-y-6">
+                <h3 class="font-serif text-xl font-bold text-catholic-deep">Temas de Destaque</h3>
+                
+                <div class="space-y-4 text-slate-800">
+                    <div class="p-5 bg-catholic-cream rounded border border-stone-200 shadow-2xs">
+                        <h4 class="font-sans font-bold text-sm sm:text-base text-catholic-deep tracking-wide">1. As 7 Palavras de Cristo na Cruz</h4>
+                    </div>
+                    <div class="p-5 bg-catholic-cream rounded border border-stone-200 shadow-2xs">
+                        <h4 class="font-sans font-bold text-sm sm:text-base text-catholic-deep tracking-wide">2. Advento & Natal</h4>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- BOTÕES DE AÇÕES RÁPIDAS (ATUALIZADOS) -->
+    <section class="py-20 bg-slate-100 border-t border-b border-stone-200">
+        <div class="max-w-4xl mx-auto px-6 sm:px-8 text-center space-y-8">
+            <h3 class="font-serif text-2xl font-bold text-catholic-deep">Descobrir mais</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                <!-- Botão 1: Cursos -->
+                <a href="cursos.html" class="bg-catholic-deep hover:bg-slate-800 text-white font-bold py-4 px-6 rounded shadow-md transition-all text-xs uppercase tracking-widest text-center">
+                    📖 Cursos
+                </a>
+                <!-- Botão 2: Artigos -->
+                <a href="artigos.html" class="bg-catholic-gold hover:bg-catholic-goldDark text-white font-bold py-4 px-6 rounded shadow-md transition-all text-xs uppercase tracking-widest text-center">
+                    ✍️ Artigos
+                </a>
+                <!-- Botão 3: Contactos -->
+                <a href="contactos.html" class="bg-white hover:bg-slate-50 text-catholic-deep border border-stone-200 font-bold py-4 px-6 rounded shadow-md transition-all text-xs uppercase tracking-widest text-center">
+                    ✉️ Contactos
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTAINER DO RODAPÉ GLOBAL DINÂMICO -->
+    <div id="rodape-container"></div>
+
+    <!-- LÓGICA INTERATIVA (NOTIFICAÇÃO TOAST & CARREGAMENTO MODULAR) -->
+    <script>
+        // Função auxiliar para construir caminhos absolutos relativos à localização atual
+        function obterUrlRelativa(nomeFicheiro) {
+            try {
+                const urlBase = new URL(window.location.href);
+                const partesCaminho = urlBase.pathname.split('/');
+                partesCaminho[partesCaminho.length - 1] = nomeFicheiro;
+                urlBase.pathname = partesCaminho.join('/');
+                return urlBase.toString();
+            } catch (e) {
+                return nomeFicheiro;
+            }
+        }
+
+        // Função assíncrona para carregar componentes externos dinamicamente de forma segura
+        async function carregarComponentesGlobais() {
+            try {
+                const urlMenu = obterUrlRelativa('menu.html');
+                const menuResposta = await fetch(urlMenu);
+                if (menuResposta.ok) {
+                    const menuHTML = await menuResposta.text();
+                    document.getElementById('menu-container').innerHTML = menuHTML;
+                } else {
+                    const menuFallback = await fetch('menu.html');
+                    if (menuFallback.ok) {
+                        document.getElementById('menu-container').innerHTML = await menuFallback.text();
+                    }
+                }
+            } catch (erro) {
+                console.warn('CORS ou Sandbox impediu o carregamento dinâmico do menu.');
+            }
+
+            try {
+                const urlRodape = obterUrlRelativa('rodape.html');
+                const rodapeResposta = await fetch(urlRodape);
+                if (rodapeResposta.ok) {
+                    const rodapeHTML = await rodapeResposta.text();
+                    document.getElementById('rodape-container').innerHTML = rodapeHTML;
+                } else {
+                    const rodapeFallback = await fetch('rodape.html');
+                    if (rodapeFallback.ok) {
+                        document.getElementById('rodape-container').innerHTML = await rodapeFallback.text();
+                    }
+                }
+            } catch (erro) {
+                console.warn('CORS ou Sandbox impediu o carregamento dinâmico do rodapé.');
+            }
+        }
+
+        // Executar o carregamento quando o DOM estiver pronto
+        window.addEventListener('DOMContentLoaded', carregarComponentesGlobais);
+
+        // Função para Alternar o Menu Móvel
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu) {
+                if (menu.classList.contains('hidden')) {
+                    menu.classList.remove('hidden');
+                } else {
+                    menu.classList.add('hidden');
+                }
+            }
+        }
+
+        // Sistema de Notificações Customizadas
+        function showNotification(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `p-4 rounded shadow-lg text-white font-semibold text-xs flex items-center gap-3 transition-all duration-300 translate-y-2 pointer-events-auto max-w-sm ${
+                type === 'success' ? 'bg-catholic-gold shadow-stone-900/10' : 'bg-amber-700 shadow-stone-900/10'
+            }`;
+            
+            toast.innerHTML = `
+                <span>${type === 'success' ? '✓' : '⚠'}</span>
+                <span>${message}</span>
+            `;
+            
+            container.appendChild(toast);
+            
+            // Ativar animação de entrada
+            setTimeout(() => {
+                toast.classList.remove('translate-y-2');
+                toast.classList.add('translate-y-0');
+            }, 10);
+            
+            // Auto-remover após 5 segundos
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'scale-95');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

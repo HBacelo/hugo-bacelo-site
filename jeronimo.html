@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jerónimo Editora | Hugo Bacelo</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Playfair Display & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        catholic: {
+                            deep: '#0F172A',
+                            gold: '#D97706',
+                            cream: '#FDFBF7'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-catholic-cream text-slate-800 font-sans antialiased">
+
+    <!-- CONTAINER DO MENU GLOBAL DINÂMICO -->
+    <div id="menu-container"></div>
+
+    <!-- CONTENT WITH LATERAL PHOTO -->
+    <section class="py-16 max-w-5xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left Side: Editorial Manifesto & Button -->
+        <div class="lg:col-span-7 space-y-6">
+            <span class="text-catholic-gold text-xs uppercase font-extrabold tracking-widest block">Apostolado da Boa Imprensa</span>
+            <h1 class="font-serif text-3xl sm:text-4xl font-bold text-catholic-deep">Jerónimo Editora</h1>
+            <div class="h-1 w-12 bg-catholic-gold"></div>
+
+            <p class="text-slate-700 leading-relaxed font-light text-base sm:text-lg">
+                A Jerónimo Editora nasce com o propósito de enriquecer o panorama editorial português, especializando-se em obras de formação bíblica Católica que primam pela profundidade teológica e fidelidade às fontes. O seu nome é uma homenagem a São Jerónimo, presbítero e Doutor da Igreja, padroeiro dos estudiosos da Sagrada Escritura, que nos recorda:
+            </p>
+
+            <p class="font-serif text-xl italic font-bold text-catholic-deep text-center py-4">
+                «Ignorar as Escrituras é ignorar Cristo».
+            </p>
+
+            <!-- External Link Button -->
+            <div class="pt-6">
+                <a href="https://www.editorajeronimo.pt" target="_blank" class="inline-block bg-[#D97706] hover:bg-[#B45309] text-white font-bold py-3.5 px-8 rounded shadow-md text-xs uppercase tracking-widest transition">
+                    Visitar www.editorajeronimo.pt
+                </a>
+            </div>
+        </div>
+
+        <!-- Right Side: Space for Lateral Photo -->
+        <div class="lg:col-span-5 flex justify-center">
+            <div class="space-y-4">
+                <div class="relative w-64 h-72 sm:w-72 sm:h-80 bg-slate-200 border border-stone-200 rounded-xl overflow-hidden shadow-xl">
+                    <img src="Imagens/jeronimo_lateral.png" alt="Obras Jerónimo Editora" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none';">
+                </div>
+                <div class="relative w-64 h-40 sm:w-72 sm:h-44 bg-slate-200 border border-stone-200 rounded-xl overflow-hidden shadow-xl">
+                    <img src="Imagens/jeronimo_extra.png" alt="Obras Adicionais Jerónimo Editora" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none';">
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- CONTAINER DO RODAPÉ GLOBAL DINÂMICO -->
+    <div id="rodape-container"></div>
+
+    <script>
+        // Função auxiliar para construir caminhos absolutos relativos à localização atual
+        function obterUrlRelativa(nomeFicheiro) {
+            try {
+                const urlBase = new URL(window.location.href);
+                const partesCaminho = urlBase.pathname.split('/');
+                partesCaminho[partesCaminho.length - 1] = nomeFicheiro;
+                urlBase.pathname = partesCaminho.join('/');
+                return urlBase.toString();
+            } catch (e) {
+                return nomeFicheiro;
+            }
+        }
+
+        // Função assíncrona para carregar componentes externos dinamicamente de forma segura
+        async function carregarComponentesGlobais() {
+            try {
+                const urlMenu = obterUrlRelativa('menu.html');
+                const menuResposta = await fetch(urlMenu);
+                if (menuResposta.ok) {
+                    const menuHTML = await menuResposta.text();
+                    document.getElementById('menu-container').innerHTML = menuHTML;
+                } else {
+                    const menuFallback = await fetch('menu.html');
+                    if (menuFallback.ok) {
+                        document.getElementById('menu-container').innerHTML = await menuFallback.text();
+                    }
+                }
+            } catch (erro) {
+                console.warn('CORS ou Sandbox impediu o carregamento dinâmico do menu.');
+            }
+
+            try {
+                const urlRodape = obterUrlRelativa('rodape.html');
+                const rodapeResposta = await fetch(urlRodape);
+                if (rodapeResposta.ok) {
+                    const rodapeHTML = await rodapeResposta.text();
+                    document.getElementById('rodape-container').innerHTML = rodapeHTML;
+                } else {
+                    const rodapeFallback = await fetch('rodape.html');
+                    if (rodapeFallback.ok) {
+                        document.getElementById('rodape-container').innerHTML = await rodapeFallback.text();
+                    }
+                }
+            } catch (erro) {
+                console.warn('CORS ou Sandbox impediu o carregamento dinâmico do rodapé.');
+            }
+        }
+
+        // Executar o carregamento quando o DOM estiver pronto
+        window.addEventListener('DOMContentLoaded', carregarComponentesGlobais);
+
+        // Função para Alternar o Menu Móvel
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu) {
+                if (menu.classList.contains('hidden')) {
+                    menu.classList.remove('hidden');
+                } else {
+                    menu.classList.add('hidden');
+                }
+            }
+        }
+    </script>
+</body>
+</html>

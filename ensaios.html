@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ensaios | Hugo Bacelo</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Playfair Display & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        catholic: {
+                            deep: '#0F172A',
+                            gold: '#D97706',
+                            goldLight: '#FBBF24',
+                            cream: '#FDFBF7'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-catholic-cream text-slate-800 font-sans antialiased">
+
+    <!-- CONTAINER DO MENU GLOBAL DINÂMICO -->
+    <div id="menu-container"></div>
+
+    <!-- HORIZONTAL TOP IMAGE BANNER -->
+    <div class="relative w-full h-64 bg-slate-800 border-b border-stone-200">
+        <img src="Imagens/ensaios_banner.png" alt="Biblioteca Clássica Hugo Bacelo" class="w-full h-full object-cover opacity-80" onerror="this.style.display='none';">
+        <div class="absolute inset-0 bg-gradient-to-t from-catholic-deep via-catholic-deep/40 to-transparent flex flex-col items-center justify-center p-6 text-center text-white">
+            <h1 class="font-serif text-3xl sm:text-5xl font-bold tracking-tight">Arquivo de Ensaios</h1>
+            <p class="text-xs sm:text-sm uppercase tracking-[0.25em] text-catholic-goldLight font-semibold mt-2">Crítica e Doutrina Sem Hesitações</p>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT SECTION WITH CATEGORIES SEARCH -->
+    <section class="py-16 max-w-5xl mx-auto px-6 space-y-12">
+        
+        <!-- Search filter by category -->
+        <div class="bg-white border border-stone-200 p-6 rounded-xl shadow-xs space-y-4">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <span class="text-xs uppercase font-extrabold text-slate-500 tracking-wider">Filtrar por Categoria:</span>
+                <div class="flex flex-wrap gap-2 justify-center" id="ensaios-filter-buttons">
+                    <button onclick="filterEnsaios('all')" class="ens-btn px-4 py-2 rounded bg-catholic-deep text-white text-xs font-semibold uppercase tracking-wider transition">Todos os Ensaios</button>
+                    <button onclick="filterEnsaios('teologia')" class="ens-btn px-4 py-2 rounded bg-white border border-stone-200 text-slate-600 text-xs font-semibold uppercase tracking-wider hover:bg-slate-50 transition">Teologia</button>
+                    <button onclick="filterEnsaios('feminismo')" class="ens-btn px-4 py-2 rounded bg-white border border-stone-200 text-slate-600 text-xs font-semibold uppercase tracking-wider hover:bg-slate-50 transition">Feminismo</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Simulated Reading Panel (appears dynamically) -->
+        <div id="ens-simulated-page" class="hidden bg-white border border-stone-300 p-8 rounded-xl shadow-md space-y-4 animate-fade-in relative">
+            <button onclick="closeEnsReader()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 font-bold text-lg">✕ Fechar</button>
+            <span id="ens-read-category" class="text-xs uppercase font-bold text-catholic-gold tracking-widest block">Ensaio</span>
+            <h2 id="ens-read-title" class="font-serif text-2xl sm:text-3xl font-bold text-catholic-deep leading-snug">Título</h2>
+            <hr class="border-stone-200">
+            <div id="ens-read-content" class="text-slate-700 leading-relaxed font-light text-base space-y-4 pt-2">
+                <!-- Dynamically filled with javascript -->
+            </div>
+        </div>
+
+        <!-- Complete Titles and Subtitles Layout -->
+        <div class="space-y-12" id="ensaios-list-container">
+            
+            <!-- Category: Teologia -->
+            <div class="ens-cat-block space-y-6" data-cat="teologia">
+                <div class="flex items-center gap-3">
+                    <span class="text-catholic-gold font-serif text-xl">✞</span>
+                    <h2 class="font-serif text-2xl font-bold text-catholic-deep">Teologia</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div onclick="openEnsReader('A Coroação da História da Salvação (Pentecostes)', 'Teologia', 'Um estudo teológico sobre o Pentecostes, a vinda do Espírito Santo e a consolidação do corpo místico da Igreja.')" class="p-6 bg-white border border-stone-200 rounded-lg hover:border-catholic-gold transition cursor-pointer">
+                        <h3 class="font-serif font-bold text-base sm:text-lg text-slate-800 hover:underline">A Coroação da História da Salvação (Pentecostes)</h3>
+                    </div>
+                    <div onclick="openEnsReader('Engolido por uma Má Exegese', 'Teologia', 'Crítica feroz às correntes liberais modernas de interpretação bíblica que esvaziam os textos sagrados da sua força profética.')" class="p-6 bg-white border border-stone-200 rounded-lg hover:border-catholic-gold transition cursor-pointer">
+                        <h3 class="font-serif font-bold text-base sm:text-lg text-slate-800 hover:underline">Engolido por uma Má Exegese</h3>
+                    </div>
+                    <div onclick="openEnsReader('Nascimento de Jesus: Belém ou Nazaré?', 'Teologia', 'Análise teológica detalhada contra as tentativas críticas modernas de duvidar do nascimento de Cristo na cidade de David.')" class="p-6 bg-white border border-stone-200 rounded-lg hover:border-catholic-gold transition cursor-pointer">
+                        <h3 class="font-serif font-bold text-base sm:text-lg text-slate-800 hover:underline">Nascimento de Jesus: Belém ou Nazaré?</h3>
+                    </div>
+                    <div onclick="openEnsReader('Como Não Ler a Bíblia em Qualquer Século (3 de 3)', 'Teologia', 'Parte final de uma trilogia indispensável de princípios práticos de exegese católica tradicional.')" class="p-6 bg-white border border-stone-200 rounded-lg hover:border-catholic-gold transition cursor-pointer">
+                        <h3 class="font-serif font-bold text-base sm:text-lg text-slate-800 hover:underline">Como Não Ler a Bíblia em Qualquer Século (3 de 3)</h3>
+                    </div>
+                    <div onclick="openEnsReader('Como Não Ler a Bíblia em Qualquer Século (2 de 3)', 'Teologia', 'Segundo caderno de advertências litúrgicas e hermenêuticas na leitura diária das Sagradas Escrituras.')" class="p-6 bg-white border border-stone-200 rounded-lg hover:border-catholic-gold transition cursor-pointer">
+                        <h3 class="font-serif font-bold text-base sm:text-lg text-slate-800 hover:underline">Como Não Ler a Bíblia em Qualquer Século (2 de 3)</h3>
+                    </div>
+                    <div onclick="openEnsReader('Como Não Ler a Bíblia em Qualquer Século (1 de 3)', 'Teologia', 'Introdução sistemática ao método correto de leitura de acordo com os Santos Padres da Igreja.')" class="p-6 bg-white border border-stone-200 rounded-lg hover:border-catholic-gold transition cursor-pointer">
+                        <h3 class="font-serif font-bold text-base sm:text-lg text-slate-800 hover:underline">Como Não Ler a Bíblia em Qualquer Século (1 de 3)</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category: Feminismo -->
+            <div class="ens-cat-block space-y-6" data-cat="feminismo">
+                <div class="flex items-center gap-3">
+                    <span class="text-catholic-gold font-serif text-xl">✞</span>
+                    <h2 class="font-serif text-2xl font-bold text-catholic-deep">Feminismo</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div onclick="openEnsReader('A Nova Masculinidade é a Velha Feminilidade', 'Feminismo', 'Um ensaio antropológico clássico sobre a perda de referências e virtudes masculinas no mundo ocidental sob a influência ideológica contemporânea.')" class="p-6 bg-white border border-stone-200 rounded-lg hover:border-catholic-gold transition cursor-pointer">
+                        <h3 class="font-serif font-bold text-base sm:text-lg text-slate-800 hover:underline">A Nova Masculinidade é a Velha Feminilidade</h3>
+                    </div>
+                    <div onclick="openEnsReader('A Incongruente Utopia Feminista – Parte III', 'Feminismo', 'Terceira e última parte da análise crítica sobre os fundamentos da ideologia de género e a sua recusa da realeza natural mariana.')" class="p-6 bg-white border border-stone-200 rounded-lg hover:border-catholic-gold transition cursor-pointer">
+                        <h3 class="font-serif font-bold text-base sm:text-lg text-slate-800 hover:underline">A Incongruente Utopia Feminista – Parte III</h3>
+                    </div>
+                    <div onclick="openEnsReader('A Incongruente Utopia Feminista – Parte II', 'Feminismo', 'Segunda parte do estudo dedicado à destruição das virtudes maternas promovida pelo movimento feminista ocidental.')" class="p-6 bg-white border border-stone-200 rounded-lg hover:border-catholic-gold transition cursor-pointer">
+                        <h3 class="font-serif font-bold text-base sm:text-lg text-slate-800 hover:underline">A Incongruente Utopia Feminista – Parte II</h3>
+                    </div>
+                    <div onclick="openEnsReader('A Incongruente Utopia Feminista – Parte I', 'Feminismo', 'Início da investigação crítica à desconstrução das bases da família tradicional e à rejeição do desígnio evangélico.')" class="p-6 bg-white border border-stone-200 rounded-lg hover:border-catholic-gold transition cursor-pointer">
+                        <h3 class="font-serif font-bold text-base sm:text-lg text-slate-800 hover:underline">A Incongruente Utopia Feminista – Parte I</h3>
+                    </div>
+                    <div onclick="openEnsReader('Igualdade de Género: um Falso Ideal – Parte II. Género', 'Feminismo', 'Estudo exegético e filosófico sobre as falsidades terminológicas e ontológicas da ideologia de género.')" class="p-6 bg-white border border-stone-200 rounded-lg hover:border-catholic-gold transition cursor-pointer">
+                        <h3 class="font-serif font-bold text-base sm:text-lg text-slate-800 hover:underline">Igualdade de Género: um Falso Ideal – Parte II. Género</h3>
+                    </div>
+                    <div onclick="openEnsReader('Igualdade de Género: um Falso Ideal – Parte I. Abertura', 'Feminismo', 'Enquadramento da farsa intelectual que tenta igualar artificialmente as vocações complementares e magníficas do homem e da mulher.')" class="p-6 bg-white border border-stone-200 rounded-lg hover:border-catholic-gold transition cursor-pointer">
+                        <h3 class="font-serif font-bold text-base sm:text-lg text-slate-800 hover:underline">Igualdade de Género: um Falso Ideal – Parte I. Abertura</h3>
+                    </div>
+                    <div onclick="openEnsReader('Mulheres Antifeministas Precisam-se!', 'Feminismo', 'Um apelo corajoso ao regresso das mulheres à virtude mariana, à dignidade espiritual autêntica e ao combate contra as distorções do laicismo feminista.')" class="p-6 bg-white border border-stone-200 rounded-lg hover:border-catholic-gold transition cursor-pointer">
+                        <h3 class="font-serif font-bold text-base sm:text-lg text-slate-800 hover:underline">Mulheres Antifeministas Precisam-se!</h3>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CONTAINER DO RODAPÉ GLOBAL DINÂMICO -->
+    <div id="rodape-container"></div>
+
+    <script>
+        // Função auxiliar para construir caminhos absolutos relativos à localização atual
+        function obterUrlRelativa(nomeFicheiro) {
+            try {
+                const urlBase = new URL(window.location.href);
+                const partesCaminho = urlBase.pathname.split('/');
+                partesCaminho[partesCaminho.length - 1] = nomeFicheiro;
+                urlBase.pathname = partesCaminho.join('/');
+                return urlBase.toString();
+            } catch (e) {
+                return nomeFicheiro;
+            }
+        }
+
+        // Função assíncrona para carregar componentes externos dinamicamente de forma segura
+        async function carregarComponentesGlobais() {
+            try {
+                const urlMenu = obterUrlRelativa('menu.html');
+                const menuResposta = await fetch(urlMenu);
+                if (menuResposta.ok) {
+                    const menuHTML = await menuResposta.text();
+                    document.getElementById('menu-container').innerHTML = menuHTML;
+                } else {
+                    const menuFallback = await fetch('menu.html');
+                    if (menuFallback.ok) {
+                        document.getElementById('menu-container').innerHTML = await menuFallback.text();
+                    }
+                }
+            } catch (erro) {
+                console.warn('CORS ou Sandbox impediu o carregamento dinâmico do menu.');
+            }
+
+            try {
+                const urlRodape = obterUrlRelativa('rodape.html');
+                const rodapeResposta = await fetch(urlRodape);
+                if (rodapeResposta.ok) {
+                    const rodapeHTML = await rodapeResposta.text();
+                    document.getElementById('rodape-container').innerHTML = rodapeHTML;
+                } else {
+                    const rodapeFallback = await fetch('rodape.html');
+                    if (rodapeFallback.ok) {
+                        document.getElementById('rodape-container').innerHTML = await rodapeFallback.text();
+                    }
+                }
+            } catch (erro) {
+                console.warn('CORS ou Sandbox impediu o carregamento dinâmico do rodapé.');
+            }
+        }
+
+        // Executar o carregamento quando o DOM estiver pronto
+        window.addEventListener('DOMContentLoaded', carregarComponentesGlobais);
+
+        // Função para Alternar o Menu Móvel
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu) {
+                if (menu.classList.contains('hidden')) {
+                    menu.classList.remove('hidden');
+                } else {
+                    menu.classList.add('hidden');
+                }
+            }
+        }
+
+        // Lógica de filtro e visualização dos ensaios
+        function filterEnsaios(category) {
+            const buttons = document.querySelectorAll('.ens-btn');
+            buttons.forEach(btn => {
+                btn.className = "ens-btn px-4 py-2 rounded bg-white border border-stone-200 text-slate-600 text-xs font-semibold uppercase tracking-wider hover:bg-slate-50 transition";
+            });
+            event.currentTarget.className = "ens-btn px-4 py-2 rounded bg-catholic-deep text-white text-xs font-semibold uppercase tracking-wider transition";
+
+            const blocks = document.querySelectorAll('.ens-cat-block');
+            blocks.forEach(blk => {
+                if (category === 'all') {
+                    blk.style.display = 'block';
+                } else if (blk.getAttribute('data-cat') === category) {
+                    blk.style.display = 'block';
+                } else {
+                    blk.style.display = 'none';
+                }
+            });
+            closeEnsReader();
+        }
+
+        function openEnsReader(title, category, simulatedContent) {
+            document.getElementById('ens-simulated-page').classList.remove('hidden');
+            document.getElementById('ens-read-title').innerText = title;
+            document.getElementById('ens-read-category').innerText = category;
+            
+            document.getElementById('ens-read-content').innerHTML = `
+                <p>${simulatedContent}</p>
+                <p class="pt-4 text-xs font-light text-slate-500 italic">Este ensaio pertence ao arquivo privado do autor. Para parcerias de re-publicação ou referências académicas, envie um pedido por correio eletrónico.</p>
+            `;
+            document.getElementById('ens-simulated-page').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function closeEnsReader() {
+            document.getElementById('ens-simulated-page').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>

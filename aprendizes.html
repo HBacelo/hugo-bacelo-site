@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprendizes do Verbo | Hugo Bacelo</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Playfair Display & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        catholic: {
+                            deep: '#0F172A', // Slate 900 - Azul escuro profundo solene
+                            gold: '#D97706', // Amber 600 - Laranja/Ouro litúrgico
+                            goldLight: '#FBBF24', // Amber 400
+                            goldDark: '#B45309', // Amber 700
+                            cream: '#FDFBF7' // Fundo de papel manuscrito antigo
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-catholic-cream text-slate-800 font-sans antialiased">
+
+    <!-- CONTAINER DO MENU GLOBAL DINÂMICO -->
+    <div id="menu-container"></div>
+
+    <!-- FITA DECORATIVA SUPERIOR -->
+    <div class="h-1.5 w-full bg-catholic-gold"></div>
+
+    <!-- CONTEÚDO E FOTOS -->
+    <section class="py-16 max-w-5xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12">
+        
+        <!-- Lado Esquerdo: Conteúdo e Links de Ação -->
+        <div class="lg:col-span-7 space-y-6">
+            <span class="text-catholic-gold text-xs uppercase font-extrabold tracking-widest block">Movimento Paroquial</span>
+            <h1 class="font-serif text-3xl sm:text-4xl font-bold text-[#0F172A]">Aprendizes do Verbo</h1>
+            <div class="h-1 w-12 bg-catholic-gold"></div>
+
+            <p class="text-slate-700 leading-relaxed font-light text-base sm:text-lg">
+                Movimento paroquial de São José de São Lázaro, Braga, fundado em 2024 por Hugo e Cristiana Bacelo, com o propósito de promover a formation bíblica de forma acessível, profunda e comunitária.
+            </p>
+
+            <!-- Botoes para Drives e Redes Sociais -->
+            <div class="pt-6 space-y-4">
+                <h3 class="font-serif text-lg font-bold text-[#0F172A]">Recursos e Leituras do Movimento</h3>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <a href="https://drive.google.com" target="_blank" class="flex items-center justify-between p-4 bg-white border border-stone-200 rounded-lg shadow-xs hover:border-catholic-gold transition">
+                        <span class="text-xs font-bold text-slate-800">📂 Drive Leituras</span>
+                        <span class="text-xs text-catholic-gold">Aceder →</span>
+                    </a>
+                    <a href="https://drive.google.com" target="_blank" class="flex items-center justify-between p-4 bg-white border border-stone-200 rounded-lg shadow-xs hover:border-catholic-gold transition">
+                        <span class="text-xs font-bold text-slate-800">📂 Drive Recursos da Reunião</span>
+                        <span class="text-xs text-catholic-gold">Aceder →</span>
+                    </a>
+                </div>
+
+                <div class="pt-4 space-y-2">
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block">Redes Sociais do Núcleo</span>
+                    <div class="flex gap-2">
+                        <a href="#" class="p-2 bg-white border border-stone-200 rounded text-xs hover:bg-[#D97706] hover:text-white transition font-medium">Instagram</a>
+                        <a href="#" class="p-2 bg-white border border-stone-200 rounded text-xs hover:bg-[#D97706] hover:text-white transition font-medium">Facebook</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lado Direito: Espaço para Fotografias -->
+        <div class="lg:col-span-5 space-y-6">
+            <span class="text-xs uppercase font-extrabold tracking-widest text-slate-400 block">Momentos Pastorais</span>
+            
+            <div class="space-y-4">
+                <!-- Foto Vertical -->
+                <div class="bg-slate-200 border border-stone-200 rounded-lg overflow-hidden h-72 relative">
+                    <img src="Imagens/aprendizes_vertical.png" alt="Reunião Aprendizes do Verbo" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'">
+                </div>
+                
+                <!-- Grelha com 2 Fotos Horizontais -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-slate-200 border border-stone-200 rounded-lg overflow-hidden h-36 relative">
+                        <img src="Imagens/aprendizes_h1.png" alt="Estudo Bíblico" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'">
+                    </div>
+                    <div class="bg-slate-200 border border-stone-200 rounded-lg overflow-hidden h-36 relative">
+                        <img src="Imagens/aprendizes_h2.png" alt="Oração Comunitária" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- CONTAINER DO RODAPÉ GLOBAL DINÂMICO -->
+    <div id="rodape-container"></div>
+
+    <!-- LÓGICA INTERATIVA -->
+    <script>
+        // Função auxiliar para construir caminhos absolutos relativos à localização atual
+        function obterUrlRelativa(nomeFicheiro) {
+            try {
+                const urlBase = new URL(window.location.href);
+                const partesCaminho = urlBase.pathname.split('/');
+                partesCaminho[partesCaminho.length - 1] = nomeFicheiro;
+                urlBase.pathname = partesCaminho.join('/');
+                return urlBase.toString();
+            } catch (e) {
+                return nomeFicheiro;
+            }
+        }
+
+        // Função assíncrona para carregar componentes externos dinamicamente de forma segura
+        async function carregarComponentesGlobais() {
+            try {
+                const urlMenu = obterUrlRelativa('menu.html');
+                const menuResposta = await fetch(urlMenu);
+                if (menuResposta.ok) {
+                    const menuHTML = await menuResposta.text();
+                    document.getElementById('menu-container').innerHTML = menuHTML;
+                } else {
+                    const menuFallback = await fetch('menu.html');
+                    if (menuFallback.ok) {
+                        document.getElementById('menu-container').innerHTML = await menuFallback.text();
+                    }
+                }
+            } catch (erro) {
+                console.warn('CORS ou Sandbox impediu o carregamento dinâmico do menu.');
+            }
+
+            try {
+                const urlRodape = obterUrlRelativa('rodape.html');
+                const rodapeResposta = await fetch(urlRodape);
+                if (rodapeResposta.ok) {
+                    const rodapeHTML = await rodapeResposta.text();
+                    document.getElementById('rodape-container').innerHTML = rodapeHTML;
+                } else {
+                    const rodapeFallback = await fetch('rodape.html');
+                    if (rodapeFallback.ok) {
+                        document.getElementById('rodape-container').innerHTML = await rodapeFallback.text();
+                    }
+                }
+            } catch (erro) {
+                console.warn('CORS ou Sandbox impediu o carregamento dinâmico do rodapé.');
+            }
+        }
+
+        // Executar o carregamento quando o DOM estiver pronto
+        window.addEventListener('DOMContentLoaded', carregarComponentesGlobais);
+
+        // Função para Alternar o Menu Móvel
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu) {
+                if (menu.classList.contains('hidden')) {
+                    menu.classList.remove('hidden');
+                } else {
+                    menu.classList.add('hidden');
+                }
+            }
+        }
+    </script>
+</body>
+</html>

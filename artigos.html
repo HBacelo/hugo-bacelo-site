@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artigos Católicos | Hugo Bacelo</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Playfair Display & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        catholic: {
+                            deep: '#0F172A',
+                            gold: '#D97706',
+                            goldLight: '#FBBF24',
+                            cream: '#FDFBF7'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-catholic-cream text-slate-800 font-sans antialiased">
+
+    <!-- CONTAINER DO MENU GLOBAL DINÂMICO -->
+    <div id="menu-container"></div>
+
+    <!-- HORIZONTAL TOP IMAGE BANNER -->
+    <div class="relative w-full h-64 bg-slate-800 border-b border-stone-200">
+        <img src="Imagens/artigos_banner.png" alt="Espaço de Estudo Católico" class="w-full h-full object-cover opacity-80" onerror="this.style.display='none';">
+        <div class="absolute inset-0 bg-gradient-to-t from-catholic-deep via-catholic-deep/40 to-transparent flex flex-col items-center justify-center p-6 text-center text-white">
+            <h1 class="font-serif text-3xl sm:text-5xl font-bold tracking-tight">Artigos Católicos</h1>
+            <p class="text-xs sm:text-sm uppercase tracking-[0.25em] text-catholic-goldLight font-semibold mt-2">Doutrina, Tradição e Magistério em Perspetiva</p>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT SECTION WITH CATEGORIES SEARCH -->
+    <section class="py-16 max-w-5xl mx-auto px-6 space-y-12">
+        
+        <!-- Search filter by category -->
+        <div class="bg-white border border-stone-200 p-6 rounded-xl shadow-xs space-y-4">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <span class="text-xs uppercase font-extrabold text-slate-500 tracking-wider">Procurar por Categoria:</span>
+                <div class="flex flex-wrap gap-2 justify-center" id="artigos-filter-buttons">
+                    <button onclick="filterArticles('all')" class="art-btn px-4 py-2 rounded bg-catholic-deep text-white text-xs font-semibold uppercase tracking-wider transition">Todos os Tópicos</button>
+                    <button onclick="filterArticles('advento')" class="art-btn px-4 py-2 rounded bg-white border border-stone-200 text-slate-600 text-xs font-semibold uppercase tracking-wider hover:bg-slate-50 transition">Advento e Natal</button>
+                    <button onclick="filterArticles('palavras')" class="art-btn px-4 py-2 rounded bg-white border border-stone-200 text-slate-600 text-xs font-semibold uppercase tracking-wider hover:bg-slate-50 transition">As 7 Palavras</button>
+                    <button onclick="filterArticles('outros')" class="art-btn px-4 py-2 rounded bg-white border border-stone-200 text-slate-600 text-xs font-semibold uppercase tracking-wider hover:bg-slate-50 transition">Outros Temas</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dynamic Simulated Reading Panel (appears on click) -->
+        <div id="simulated-page" class="hidden bg-white border border-stone-300 p-8 rounded-xl shadow-md space-y-4 animate-fade-in relative">
+            <button onclick="closeReader()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 font-bold text-lg">✕ Fechar</button>
+            <span id="read-category" class="text-xs uppercase font-bold text-catholic-gold tracking-widest block">Artigo</span>
+            <h2 id="read-title" class="font-serif text-2xl sm:text-3xl font-bold text-catholic-deep leading-snug">Título</h2>
+            <hr class="border-stone-200">
+            <div id="read-content" class="text-slate-700 leading-relaxed font-light text-base space-y-4 pt-2">
+                <!-- Dynamically filled with javascript -->
+            </div>
+        </div>
+
+        <!-- Complete Titles and Subtitles layout -->
+        <div class="space-y-12" id="articles-list-container">
+            
+            <!-- Category 1: Advento e Natal -->
+            <div class="article-cat-block space-y-6" data-cat="advento">
+                <div class="flex items-center gap-3">
+                    <span class="text-catholic-gold font-serif text-xl">✞</span>
+                    <h2 class="font-serif text-2xl font-bold text-catholic-deep">Advento e Natal</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div onclick="openReader('Nossa Senhora foi mãe solteira?', 'Advento e Natal', 'Um ensaio teológico e exegético acerca das alegações absurdas modernas e do desígnio imaculado de Maria Santíssima e o seu compromisso sagrado com São José à luz da Tradição e das Escrituras.')" class="p-6 bg-white border border-stone-200 rounded-lg hover:border-catholic-gold transition cursor-pointer">
+                        <h3 class="font-serif font-bold text-base sm:text-lg text-slate-800 hover:underline">Nossa Senhora foi mãe solteira?</h3>
+                    </div>
+                    <div onclick="openReader('Onde nasceu o menino Jesus?', 'Advento e Natal', 'Análise bíblica e arqueológica sobre Belém de Judá, o cumprimento das profecias messiânicas e o rigor geográfico das Escrituras.')" class="p-6 bg-white border border-stone-200 rounded-lg hover:border-catholic-gold transition cursor-pointer">
+                        <h3 class="font-serif font-bold text-base sm:text-lg text-slate-800 hover:underline">Onde nasceu o menino Jesus?</h3>
+                    </div>
+                    <div onclick="openReader('Maria teve dores de parto', 'Advento e Natal', 'Um olhar apologético sobre o nascimento milagroso de Cristo e os dogmas marianos, preservando a mística litúrgica sem concessões.')" class="p-6 bg-white border border-stone-200 rounded-lg hover:border-catholic-gold transition cursor-pointer">
+                        <h3 class="font-serif font-bold text-base sm:text-lg text-slate-800 hover:underline">Maria teve dores de parto</h3>
+                    </div>
+                    <!-- Brevemente -->
+                    <div class="p-6 bg-stone-100 border border-stone-200 rounded-lg opacity-85">
+                        <h3 class="font-serif font-bold text-base sm:text-lg text-slate-400">Natal: Origem Cristã, não pagã (brevemente)</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category 2: As 7 Palavras de Cristo -->
+            <div class="article-cat-block space-y-6" data-cat="palavras">
+                <div class="flex items-center gap-3">
+                    <span class="text-catholic-gold font-serif text-xl">✞</span>
+                    <h2 class="font-serif text-2xl font-bold text-catholic-deep">As 7 palavras de Cristo</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div onclick="openReader('Introdução', 'As 7 Palavras', 'Uma introdução pastoral à importância de meditar as sete últimas sentenças do Divino Redentor na cruz como o derradeiro manual de vida eterna.')" class="p-5 bg-white border border-stone-200 rounded-lg hover:border-catholic-gold transition cursor-pointer">
+                        <h3 class="font-serif font-bold text-sm sm:text-base text-slate-800 hover:underline">Introdução</h3>
+                    </div>
+                    <div onclick="openReader('I. Pai, perdoa-lhes, porque não sabem o que fazem', 'As 7 Palavras', 'O mistério do perdão divino perante a ignorância voluntária e involuntária da humanidade no patíbulo do calvário.')" class="p-5 bg-white border border-stone-200 rounded-lg hover:border-catholic-gold transition cursor-pointer">
+                        <h3 class="font-serif font-bold text-sm sm:text-base text-slate-800 hover:underline">I. Pai, perdoa-lhes, porque não sabem o que fazem</h3>
+                    </div>
+                    <div onclick="openReader('II. Em verdade te digo: hoje estarás comigo no paraíso', 'As 7 Palavras', 'A canonização espontânea do bom ladrão e a beleza da salvação imediata no arrependimento sincero.')" class="p-5 bg-white border border-stone-200 rounded-lg hover:border-catholic-gold transition cursor-pointer">
+                        <h3 class="font-serif font-bold text-sm sm:text-base text-slate-800 hover:underline">II. Em verdade te digo: hoje estarás comigo no paraíso</h3>
+                    </div>
+                    <div onclick="openReader('III. Mulher, eis o teu Filho; eis a tua mãe', 'As 7 Palavras', 'A entrega mútua de Maria e João, simbolizando a maternidade espiritual da Igreja sobre todos os fiéis cristãos.')" class="p-5 bg-white border border-stone-200 rounded-lg hover:border-catholic-gold transition cursor-pointer">
+                        <h3 class="font-serif font-bold text-sm sm:text-base text-slate-800 hover:underline">III. Mulher, eis o teu Filho; eis a tua mãe</h3>
+                    </div>
+                    <div onclick="openReader('IV. Meu Deus, Meu Deus, porque Me abandonaste?', 'As 7 Palavras', 'A meditação profunda sobre o Salmo 21 e o sofrimento espiritual extremo de Cristo unindo as dores de toda a criação.')" class="p-5 bg-white border border-stone-200 rounded-lg hover:border-catholic-gold transition cursor-pointer">
+                        <h3 class="font-serif font-bold text-sm sm:text-base text-slate-800 hover:underline">IV. Meu Deus, Meu Deus, porque Me abandonaste?</h3>
+                    </div>
+                    <div onclick="openReader('V. Tenho sede!', 'As 7 Palavras', 'Não apenas a sede física da secura corporal, mas a Sede Divina e ardente de salvar as almas imortais de todos nós.')" class="p-5 bg-white border border-stone-200 rounded-lg hover:border-catholic-gold transition cursor-pointer">
+                        <h3 class="font-serif font-bold text-sm sm:text-base text-slate-800 hover:underline">V. Tenho sede!</h3>
+                    </div>
+                    <div onclick="openReader('VI. Está consumado!', 'As 7 Palavras', 'A conclusão perfeita de toda a História da Salvação e a restauração da Aliança entre Deus e os Homens.')" class="p-5 bg-white border border-stone-200 rounded-lg hover:border-catholic-gold transition cursor-pointer">
+                        <h3 class="font-serif font-bold text-sm sm:text-base text-slate-800 hover:underline">VI. Está consumado!</h3>
+                    </div>
+                    <div onclick="openReader('VII. Pai, em Tuas mãos entrego o Meu espírito', 'As 7 Palavras', 'O abandono absoluto do Filho nas mãos do Pai, servindo como a máxima oração de entrega cristã.')" class="p-5 bg-white border border-stone-200 rounded-lg hover:border-catholic-gold transition cursor-pointer">
+                        <h3 class="font-serif font-bold text-sm sm:text-base text-slate-800 hover:underline">VII. Pai, em Tuas mãos entrego o Meu espírito</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category 3: Outros temas -->
+            <div class="article-cat-block space-y-6" data-cat="outros">
+                <div class="flex items-center gap-3">
+                    <span class="text-catholic-gold font-serif text-xl">✞</span>
+                    <h2 class="font-serif text-2xl font-bold text-catholic-deep">Outros temas</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div onclick="openReader('Velho ou novo José?', 'Outros temas', 'Um ensaio focado na paternidade espiritual de São José, o santo patriarca e protetor da Igreja, analisando de forma rigorosa as perspetivas bíblicas do Novo Testamento versus visões extra-bíblicas antigas.')" class="p-6 bg-white border border-stone-200 rounded-lg hover:border-catholic-gold transition cursor-pointer">
+                        <h3 class="font-serif font-bold text-base sm:text-lg text-slate-800 hover:underline">Velho ou novo José?</h3>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CONTAINER DO RODAPÉ GLOBAL DINÂMICO -->
+    <div id="rodape-container"></div>
+
+    <script>
+        // Função auxiliar para construir caminhos absolutos relativos à localização atual
+        function obterUrlRelativa(nomeFicheiro) {
+            try {
+                const urlBase = new URL(window.location.href);
+                const partesCaminho = urlBase.pathname.split('/');
+                partesCaminho[partesCaminho.length - 1] = nomeFicheiro;
+                urlBase.pathname = partesCaminho.join('/');
+                return urlBase.toString();
+            } catch (e) {
+                return nomeFicheiro;
+            }
+        }
+
+        // Função assíncrona para carregar componentes externos dinamicamente de forma segura
+        async function carregarComponentesGlobais() {
+            try {
+                const urlMenu = obterUrlRelativa('menu.html');
+                const menuResposta = await fetch(urlMenu);
+                if (menuResposta.ok) {
+                    const menuHTML = await menuResposta.text();
+                    document.getElementById('menu-container').innerHTML = menuHTML;
+                } else {
+                    const menuFallback = await fetch('menu.html');
+                    if (menuFallback.ok) {
+                        document.getElementById('menu-container').innerHTML = await menuFallback.text();
+                    }
+                }
+            } catch (erro) {
+                console.warn('CORS ou Sandbox impediu o carregamento dinâmico do menu.');
+            }
+
+            try {
+                const urlRodape = obterUrlRelativa('rodape.html');
+                const rodapeResposta = await fetch(urlRodape);
+                if (rodapeResposta.ok) {
+                    const rodapeHTML = await rodapeResposta.text();
+                    document.getElementById('rodape-container').innerHTML = rodapeHTML;
+                } else {
+                    const rodapeFallback = await fetch('rodape.html');
+                    if (rodapeFallback.ok) {
+                        document.getElementById('rodape-container').innerHTML = await rodapeFallback.text();
+                    }
+                }
+            } catch (erro) {
+                console.warn('CORS ou Sandbox impediu o carregamento dinâmico do rodapé.');
+            }
+        }
+
+        // Executar o carregamento quando o DOM estiver pronto
+        window.addEventListener('DOMContentLoaded', carregarComponentesGlobais);
+
+        // Função para Alternar o Menu Móvel
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu) {
+                if (menu.classList.contains('hidden')) {
+                    menu.classList.remove('hidden');
+                } else {
+                    menu.classList.add('hidden');
+                }
+            }
+        }
+
+        // Lógica de filtro e navegação dos artigos
+        function filterArticles(category) {
+            const buttons = document.querySelectorAll('.art-btn');
+            buttons.forEach(btn => {
+                btn.className = "art-btn px-4 py-2 rounded bg-white border border-stone-200 text-slate-600 text-xs font-semibold uppercase tracking-wider hover:bg-slate-50 transition";
+            });
+            event.currentTarget.className = "art-btn px-4 py-2 rounded bg-catholic-deep text-white text-xs font-semibold uppercase tracking-wider transition";
+
+            const blocks = document.querySelectorAll('.article-cat-block');
+            blocks.forEach(blk => {
+                if (category === 'all') {
+                    blk.style.display = 'block';
+                } else if (blk.getAttribute('data-cat') === category) {
+                    blk.style.display = 'block';
+                } else {
+                    blk.style.display = 'none';
+                }
+            });
+            closeReader();
+        }
+
+        function openReader(title, category, simulatedContent) {
+            document.getElementById('simulated-page').classList.remove('hidden');
+            document.getElementById('read-title').innerText = title;
+            document.getElementById('read-category').innerText = category;
+            
+            document.getElementById('read-content').innerHTML = `
+                <p>${simulatedContent}</p>
+                <p class="pt-4 text-xs font-light text-slate-500 italic">Este artigo está disponível para leitura integral no arquivo local do Hugo Bacelo. Se pretender apoiar ou re-imprimir esta edição para a sua paróquia, contacte hugobacelo@netcabo.pt.</p>
+            `;
+            document.getElementById('simulated-page').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function closeReader() {
+            document.getElementById('simulated-page').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
